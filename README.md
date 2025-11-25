@@ -255,7 +255,7 @@ Streamlit Cloud를 통한 배포:
 1. GitHub 저장소에 코드 푸시
 2. [Streamlit Cloud](https://streamlit.io/cloud)에서 저장소 연결
 3. Main file path: `app/web/main.py` 지정
-4. 배포 완료 후 자동으로 웹 URL 생성
+4. 배포 완료 후 자동으로 웹 URL 생성 "https://serverless-rag-assistant-neiz5b2ynmfnaandwjmegf.streamlit.app/"
 
 **주의사항**:
 - Streamlit Cloud는 무료 플랜에서 1GB 메모리 제한
