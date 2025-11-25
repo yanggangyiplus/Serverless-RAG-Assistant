@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    name: Lint & Format Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install black isort flake8 mypy
+      
+      - name: Run black check
+        run: black --check --line-length 100 src app scripts tests
+      
+      - name: Run isort check
+        run: isort --check-only --profile black --line-length 100 src app scripts tests
+      
+      - name: Run flake8
+        run: flake8 src app scripts tests --max-line-length=100 --exclude=venv,.venv,build,dist
+      
+      - name: Run mypy
+        run: mypy src app --ignore-missing-imports || true
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Run tests
+        run: |
+          pytest tests/ -v --cov=src --cov-report=xml --cov-report=html
+      
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+

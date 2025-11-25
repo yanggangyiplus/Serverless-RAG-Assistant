@@ -1,0 +1,45 @@
+# RAG 서비스 설정 파일
+
+# S3 설정
+s3:
+  bucket_name: "rag-documents-bucket"
+  region: "ap-northeast-2"
+
+# 전처리 설정
+preprocessing:
+  cleaner:
+    remove_html: true
+    normalize_whitespace: true
+  chunker:
+    chunk_size: 1000
+    chunk_overlap: 200
+    separator: "\n\n"
+
+# 임베딩 설정
+embeddings:
+  provider: "huggingface"  # huggingface, openai, bedrock
+  model_name: "sentence-transformers/all-MiniLM-L6-v2"
+  dimension: 384
+
+# 벡터 스토어 설정
+vectorstore:
+  type: "mock"  # mock, dynamodb
+  table_name: "rag-documents"
+  region: "ap-northeast-2"
+
+# LLM 설정
+llm:
+  provider: "openai"  # openai, bedrock
+  model_name: "gpt-3.5-turbo"
+  temperature: 0.0
+
+# RAG 설정
+rag:
+  top_k: 5  # 검색할 문서 수
+  max_tokens: 1000
+
+# API 설정
+api:
+  base_url: "http://localhost:8000"
+  timeout: 30
+
