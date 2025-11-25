@@ -133,14 +133,16 @@ S3 Event → Lambda Trigger
 
 | 영역 | 기술 | 선택 이유 |
 |------|------|----------|
-| **Serverless** | AWS Lambda, API Gateway | 서버 관리 없이 자동 스케일링 |
+| **Backend** | AWS Lambda, API Gateway | 서버 관리 없이 자동 스케일링 |
 | **Storage** | S3, DynamoDB | 문서 저장 및 벡터 데이터 저장 |
 | **RAG Framework** | LangChain | 표준화된 RAG 파이프라인 구축 |
 | **Embeddings** | HuggingFace Transformers, OpenAI, Bedrock | 다양한 임베딩 모델 지원 |
 | **LLM** | OpenAI GPT, AWS Bedrock | 질의응답 생성 |
 | **Document Parsing** | PyPDF2, pdfplumber | PDF/TXT/MD 파일 파싱 |
-| **Web UI** | Streamlit | 빠른 프로토타이핑 및 테스트 UI |
+| **Frontend** | Streamlit | 빠른 프로토타이핑 및 테스트 UI |
 | **Infrastructure** | AWS CDK | IaC 기반 인프라 관리 |
+| **Logging** | CloudWatch Logs | Lambda 함수 로그 자동 수집 |
+| **Testing** | PyTest | 단위 테스트 및 통합 테스트 |
 
 ## 핵심 기술 설명
 
@@ -196,9 +198,6 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 # 의존성 설치
 pip install --upgrade pip
 pip install -r requirements.txt
-
-# 테스트 실행 (선택사항)
-pytest  # 또는 ./scripts/run_tests.sh
 
 # Streamlit UI 실행
 streamlit run app/web/main.py --server.port 8501
@@ -261,11 +260,11 @@ Streamlit Cloud를 통한 배포:
 **주의사항**:
 - Streamlit Cloud는 무료 플랜에서 1GB 메모리 제한
 - Lambda API 연동 시 CORS 설정 필요
-- 로컬 모드 사용 시 Mock VectorStore 자동 활성화
+- Streamlit Cloud에서는 API 모드만 사용 (LOCAL 모드 비활성화)
 
 ## 사용 시나리오 (Use Cases)
 
-### 1. 문서 기반 질의응답 시스템
+### 1. 사내 문서 기반 Q&A 시스템
 **시나리오**: 회사 내부 문서, 매뉴얼, 지식 베이스를 업로드하고 직원들이 자연어로 질문하여 답변을 받고 싶을 때  
 **해결책**: 문서 업로드 → 자동 임베딩 생성 → 벡터 스토어 저장 → RAG 기반 질의응답  
 **효과**: 문서 검색 시간 단축, 정확한 답변 제공
