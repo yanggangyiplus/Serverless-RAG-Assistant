@@ -10,10 +10,10 @@ langchain-core==0.1.30
 langchain-community==0.0.20
 
 # Embeddings
-sentence-transformers>=2.2.0
-transformers>=4.35.0
-torch>=2.1.0
+# sentence-transformers>=2.2.0
+# transformers>=4.35.0
+# torch>=2.1.0
 
 # PDF parsing
-PyPDF2>=3.0.0
-pdfplumber>=0.10.0
+# PyPDF2>=3.0.0
+# pdfplumber>=0.10.0
